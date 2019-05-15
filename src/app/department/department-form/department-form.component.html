@@ -1,0 +1,154 @@
+<div [formGroup]="registerForm">
+  <div class="ui-g">
+    <div class="ui-g-4" style="text-align:right">departmentName :</div>
+    <div class="ui-g-6">
+      <input formControlName="departmentName" type="text" pInputText />
+      <span
+        *ngIf="
+          registerForm.get('departmentName').hasError('required') &&
+          registerForm.get('departmentName').touched
+        "
+      >
+        <p-message severity="error" text="department is required"> </p-message>
+      </span>
+      <span *ngIf="registerForm.get('departmentName').hasError('pattern')">
+        <p-message severity="error" text="pattern error"> </p-message>
+      </span>
+      <span *ngIf="registerForm.get('departmentName').hasError('maxlength')">
+        <p-message severity="error" text="เกินจำนวน"> </p-message>
+      </span>
+    </div>
+  </div>
+
+  <div [formGroup]="registerForm">
+    <div
+      class="ui-g"
+      *ngFor="
+        let control of addedTelephoneFormArrayCtrl.controls;
+        let i = index
+      "
+    >
+      <div class="ui-g-4" style="text-align:right">Telephone : {{ i + 1 }}</div>
+      <div class="ui-g-4">
+        <input type="text" [formControl]="control" maxlegth="200" pInputText />
+      </div>
+      
+      <button
+        type="button"
+        icon="pi pi-plus"
+        style="margin-left: 4px"
+        (click)="addTelephone()"
+        *ngIf="i === 0"
+        pButton
+      ></button>
+      <button
+        type="button"
+        icon="pi pi-minus"
+        style="margin-left: 4px"
+        (click)="deletebutton(i)"
+        class="ui-button-raised ui-button-danger"
+        *ngIf="i !== 0"
+        pButton
+      ></button>
+
+      <span
+        *ngIf="control.hasError('required') && control.touched" >
+        <p-message severity="error" text="telephone is required"> </p-message>
+      </span>
+      <span *ngIf="control.hasError('pattern')">
+        <p-message severity="error" text="ต้องการตัวเลขเท่านั้น"> </p-message>
+      </span>
+      <span *ngIf="control.hasError('maxlength')">
+        <p-message severity="error" text="เกินจำนวน"> </p-message>
+      </span>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4" style="text-align:right">Province :</div>
+      <div class="ui-g-6">
+        <p-dropdown formControlName="province" [options]="cities1"></p-dropdown>
+        <span
+          *ngIf="
+            registerForm.get('province').hasError('required') &&
+            registerForm.get('province').touched
+          "
+        >
+          <p-message severity="error" text="province is required"> </p-message>
+        </span>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4" style="text-align:right">Budget :</div>
+      <div class="ui-g-6">
+        <input formControlName="budget" type="text" pInputText />
+        <span
+          *ngIf="
+            registerForm.get('budget').hasError('required') &&
+            registerForm.get('budget').touched
+          "
+        >
+          <p-message severity="error" text="budget is required"> </p-message>
+        </span>
+        <span *ngIf="registerForm.get('budget').hasError('pattern')">
+          <p-message severity="error" text="ต้องการตัวเลขเท่านั้น"> </p-message>
+        </span>
+        <span *ngIf="registerForm.get('budget').hasError('maxlength')">
+          <p-message severity="error" text="เกินจำนวน"> </p-message>
+        </span>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4" style="text-align:right">Status :</div>
+      <div class="ui-g-3">
+        <p-radioButton
+          formControlName="status"
+          #radio1
+          name="Status"
+          value="Y"
+          (onClick)="Status1(radio1.value, remarkInput)"
+          label="Active "
+        ></p-radioButton>
+        <p-radioButton
+          formControlName="status"
+          #radio2
+          name="Status"
+          value="N"
+          (onClick)="Status1(radio2.value, remarkInput)"
+          label="Deactive"
+        ></p-radioButton>
+      </div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-4" style="text-align:right">Remark :</div>
+      <div class="ui-g-6">
+        <input formControlName="remark" type="text" pInputText #remarkInput />
+        <span
+          *ngIf="
+            registerForm.get('remark').hasError('required') &&
+            registerForm.get('remark').touched
+          "
+        >
+          <p-message severity="error" text="remark is required"> </p-message>
+        </span>
+        <span *ngIf="registerForm.get('remark').hasError('maxlength')">
+          <p-message severity="error" text="เกินจำนวน"> </p-message>
+        </span>
+      </div>
+    </div>
+    <!-- {{ registerForm.getRawValue() | json }} -->
+    {{ registerForm.get("telephone").errors | json }}
+    <div class="ui-g">
+      <div class="ui-g-4" style="text-align:right"></div>
+      <div class="ui-g-2">
+        <button pButton type="button" label="Save" (click)="Save()"></button>
+      </div>
+      <div class="ui-g-4">
+        <button
+          pButton
+          type="button"
+          label="Cancel"
+          (click)="Cancel()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

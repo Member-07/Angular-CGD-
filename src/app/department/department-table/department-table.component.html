@@ -1,0 +1,101 @@
+<span *ngIf="showDisplay === false">
+  <p-table #tableeiei
+    [value]="departmentList"
+    selectionMode="single"
+    paginatorPosition="top"
+    (onRowSelect)="onRowSelect($event)"
+    [paginator]="true"
+    [rows]="15"
+  >
+    <ng-template pTemplate="caption">
+      List of department
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>
+          Code
+        </th>
+        <th>
+          Department
+        </th>
+        <th>
+          Province
+        </th>
+        <th>
+          Bugget
+        </th>
+        <th>
+          Status
+        </th>
+        <th>
+          telephone
+        </th>
+        <th>
+          Remove
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td style="text-align:center">
+          {{ rowData.departmentCode }}
+        </td>
+        <td>
+          {{ rowData.departmentName }}
+        </td>
+        <td>
+          {{ rowData.province | emptyDefault }}
+        </td>
+        <td style="text-align:right">
+          {{ rowData.budget }}
+        </td>
+        <td style="text-align:center">
+          {{ rowData.status | status }}
+        </td>
+        <td style="word-break: break-all">
+          {{ rowData.telephone }}
+        </td>
+        <td style="text-align:center">
+          <button
+            pButton
+            type="button"
+            label="Remove"
+            class="ui-button-danger"
+            (click)="deleteDepartment(rowData.departmentCode)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:right">
+        <button
+          pButton
+          type="button"
+          label="ADD"
+          class="ui-button-rounded"
+          (click)="addItem()"
+        ></button>
+      </div>
+    </ng-template>
+  </p-table>
+  <p-dialog
+    [closeOnEscape]="true"
+    header="DepartmentRegisterForm"
+    [(visible)]="displayDialog"
+    [responsive]="true"
+    showEffect="fade"
+    [modal]="true"
+    [style]="{ width: '700px', height: '300px' }"
+    blockScroll="true"
+    dismissableMask="true"
+    [positionTop]="20"
+    [resizable]="true"
+    appendTo="body"
+  >
+    <app-department-form
+      (save)="updateSelectedRow($event)"
+      #departmentform
+    ></app-department-form>
+  </p-dialog>
+</span>
+

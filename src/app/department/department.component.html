@@ -1,0 +1,16 @@
+<!-- <p>
+  department works!
+</p>
+{{hp+100}}
+<input type="text" pInputText [value]="hp+50">
+<button pButton type="button" (click)="incre()" label="บวก1" class="ui-button-raised ui-button-info" >
+</button>
+<button pButton type="button" (click)="decre()" label="ลบ2" class="ui-button-raised ui-button-danger">
+</button> -->
+<app-search 
+(search)="onConditionSearch($event)" 
+topic="TEST TEST!">
+</app-search>
+<button pButton type="button" (click)="DisplayTable()" label="ToggleTable"></button>
+<app-department-table #departmentTable >
+</app-department-table>

@@ -1,0 +1,8 @@
+{
+    "/workshop-api/*": {
+        "target": "http://showcase.cdgs.co.th",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin":true
+    }
+}
